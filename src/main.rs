@@ -1,6 +1,6 @@
 extern crate core;
 
-use cidr::{Cidr, Ipv4Cidr};
+use cidr::Ipv4Cidr;
 use std::env;
 use std::net::Ipv4Addr;
 use std::process::ExitCode;
@@ -30,23 +30,27 @@ fn main() -> ExitCode {
 
     supernet.sort_by_key(|c| c.network_length());
 
-    let mut blocked: u128 = 0;
-    let mut allowed: u128 = 0;
-    for s in &subnets {
-        allowed += 2u128.pow((32 - s.network_length()) as u32);
-    }
-    for s in &supernet {
-        blocked += 2u128.pow((32 - s.network_length()) as u32);
-    }
-    println!(
-        "input {}, output : {}, total: {}",
-        allowed,
-        blocked,
-        allowed + blocked
-    );
-
-    for s in supernet {
-        print!("{} ", s);
+    // let mut blocked: u128 = 0;
+    // let mut allowed: u128 = 0;
+    // for s in &subnets {
+    //     allowed += 2u128.pow((32 - s.network_length()) as u32);
+    // }
+    // for s in &supernet {
+    //     blocked += 2u128.pow((32 - s.network_length()) as u32);
+    // }
+    // println!(
+    //     "input {}, output : {}, total: {}",
+    //     allowed,
+    //     blocked,
+    //     allowed + blocked
+    // );
+    
+    for i in 0..supernet.len() {
+        if supernet.len()-1 == i {
+            println!("{}", supernet[i]);
+        } else {
+            print!("{} ", supernet[i]);
+        }
     }
 
     ExitCode::SUCCESS
